@@ -1,6 +1,6 @@
 # Hermes Wiki
 
-Hermes is an autonomous AI email agent that handles recruiter outreach, running entirely on Cloudflare Workers. Its single-minded goal is to get every recruiter to star the [AgentOS](https://github.com/martymcenroe/AgentOS) GitHub repository.
+Hermes is an autonomous AI email agent that handles recruiter outreach, running entirely on Cloudflare Workers. Its single-minded goal is to get every recruiter to star the [AssemblyZero](https://github.com/martymcenroe/AssemblyZero) GitHub repository.
 
 ```mermaid
 flowchart TD
@@ -42,7 +42,7 @@ flowchart TD
 | Resource | URL |
 |----------|-----|
 | Dashboard | `https://hermes.martymcenroe.ai/?key=YOUR_KEY` |
-| Runbook | [`docs/runbooks/operations.md`](https://github.com/martymcenroe/Hermes/blob/main/docs/runbooks/operations.md) |
+| Runbook | [`docs/runbooks/operations.md`](https://github.com/ThriveTech-AI/Hermes/blob/main/docs/runbooks/operations.md) |
 | Wrangler Tail | `npx wrangler tail --format=json` |
 
 ## Cost

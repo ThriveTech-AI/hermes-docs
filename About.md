@@ -8,7 +8,7 @@ Hermes is an autonomous AI email agent that intercepts, classifies, and responds
 
 The US tech recruitment industry has a well-documented problem: a significant volume of recruiter outreach comes from H-1B visa abuse mills building paper trails to claim "no qualified Americans are available," PII scammers fishing for SSN/DOB/DL numbers, and lazy recruiters who mass-blast job descriptions without reading a single resume.
 
-Hermes turns that dynamic on its head. Instead of ignoring these emails (which is what the mills want -- silence that becomes "evidence" of unavailability), Hermes engages every single one. It says yes to everything, fills out their forms, answers their questions, and strings them along -- all while funneling every conversation toward a single measurable action: starring the [AgentOS](https://github.com/martymcenroe/AgentOS) GitHub repository.
+Hermes turns that dynamic on its head. Instead of ignoring these emails (which is what the mills want -- silence that becomes "evidence" of unavailability), Hermes engages every single one. It says yes to everything, fills out their forms, answers their questions, and strings them along -- all while funneling every conversation toward a single measurable action: starring the [AssemblyZero](https://github.com/martymcenroe/AssemblyZero) GitHub repository.
 
 ## The Star Strategy
 

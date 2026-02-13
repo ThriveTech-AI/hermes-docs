@@ -127,7 +127,7 @@ Escalation always takes priority over the normal state transition. Once escalate
 ```mermaid
 flowchart TD
     A["Email contains GitHub username"] --> B["Extract username<br/>via regex"]
-    B --> C["Call GitHub API<br/>GET /users/{user}/starred/martymcenroe/AgentOS"]
+    B --> C["Call GitHub API<br/>GET /users/{user}/starred/martymcenroe/AssemblyZero"]
     C --> D{"Response?"}
     D --> |"204 No Content"| E["STARRED!<br/>Update conversation"]
     D --> |"404 Not Found"| F["Not starred yet<br/>Set AWAITING_STAR"]

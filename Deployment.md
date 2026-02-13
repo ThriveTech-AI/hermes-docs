@@ -12,7 +12,7 @@
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/martymcenroe/Hermes.git
+git clone https://github.com/ThriveTech-AI/Hermes.git
 cd Hermes
 npm install
 ```
