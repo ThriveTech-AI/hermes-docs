@@ -4,10 +4,13 @@ The Hermes dashboard exposes a JSON API for managing conversations, viewing stat
 
 ## Authentication
 
-Every request must include the API key via one of:
+Three methods, checked in order:
 
-- **Query parameter:** `?key=YOUR_DASHBOARD_API_KEY`
-- **Bearer token:** `Authorization: Bearer YOUR_DASHBOARD_API_KEY`
+| Method | Parameter | Role |
+|--------|-----------|------|
+| API Key | `?key=KEY` or `Authorization: Bearer KEY` | Owner |
+| Viewer Token | `?viewer=TOKEN` | Viewer |
+| GitHub OAuth | Session cookie (automatic) | Owner/Viewer+/Viewer |
 
 If `DASHBOARD_API_KEY` is not configured, all requests are allowed (dev mode).
 
@@ -181,6 +184,123 @@ Creates a `filled_table` category entry. The table content can be any format (ma
 
 ---
 
+## Labels
+
+### List Labels
+
+```
+GET /api/conversations/:id/labels
+```
+
+**Response:** Array of label objects.
+
+### Add Label (Owner)
+
+```
+POST /api/conversations/:id/labels
+Content-Type: application/json
+
+{ "label": "demo" }
+```
+
+### Remove Label (Owner)
+
+```
+DELETE /api/conversations/:id/labels
+Content-Type: application/json
+
+{ "label": "demo" }
+```
+
+---
+
+## Ratings
+
+### Rate a Response (Owner)
+
+```
+POST /api/ratings
+Content-Type: application/json
+
+{
+  "messageId": 42,
+  "conversationId": 1,
+  "rating": 4,
+  "note": "Good tone but star push was weak"
+}
+```
+
+### Get Ratings
+
+```
+GET /api/ratings/:conversationId
+```
+
+---
+
+## Observability
+
+### Get Internal Metrics
+
+```
+GET /api/observability
+```
+
+Returns token usage, intent distribution, state distribution, send stats, rating distribution, messages by day, and recent AI interactions.
+
+---
+
+## Admin (Owner Only)
+
+### Viewer Tokens
+
+```
+GET    /api/admin/viewer-tokens        # List all tokens
+POST   /api/admin/viewer-tokens        # Generate new token (4hr TTL)
+DELETE /api/admin/viewer-tokens/:id    # Revoke a token
+```
+
+### Bulk Re-init
+
+```
+POST /api/admin/reinit
+Content-Type: application/json
+
+{ "conversationIds": [1, 2, 3] }
+```
+
+Resets selected conversations to INITIAL state with AI enabled.
+
+### Bulk Poke
+
+```
+POST /api/admin/poke
+Content-Type: application/json
+
+{ "conversationIds": [1, 2, 3] }
+```
+
+Re-init + generate AI response + send via Cloudflare binding for each conversation.
+
+### Sweep
+
+```
+POST /api/admin/sweep
+Content-Type: application/json
+
+{
+  "filter": {
+    "state": "INITIAL",
+    "beforeDate": "2026-02-13T16:00:00Z",
+    "label": "demo"
+  }
+}
+```
+
+Finds all non-starred conversations matching the filter and pokes them all.
+
+---
+
 ## Error Responses
 
 All errors return JSON:
@@ -193,7 +313,8 @@ All errors return JSON:
 
 | Status | Meaning |
 |--------|---------|
-| 401 | Invalid or missing API key |
+| 400 | Bad request (missing required fields) |
+| 403 | Forbidden (insufficient role for this action) |
 | 404 | Resource not found |
 | 500 | Internal server error |
 

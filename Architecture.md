@@ -167,6 +167,60 @@ CREATE TABLE knowledge_base (
 );
 ```
 
+### viewer_tokens
+
+```sql
+CREATE TABLE viewer_tokens (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    token      TEXT NOT NULL UNIQUE,
+    expires_at TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    revoked    INTEGER DEFAULT 0
+);
+```
+
+### sessions
+
+```sql
+CREATE TABLE sessions (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_token   TEXT NOT NULL UNIQUE,
+    github_username TEXT NOT NULL,
+    role            TEXT NOT NULL,
+    expires_at      TEXT NOT NULL,
+    created_at      TEXT DEFAULT (datetime('now'))
+);
+```
+
+### conversation_labels
+
+```sql
+CREATE TABLE conversation_labels (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    conversation_id INTEGER NOT NULL,
+    label           TEXT NOT NULL,
+    created_at      TEXT DEFAULT (datetime('now')),
+    UNIQUE(conversation_id, label),
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+);
+```
+
+### response_ratings
+
+```sql
+CREATE TABLE response_ratings (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    message_id      INTEGER NOT NULL,
+    conversation_id INTEGER NOT NULL,
+    rating          INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5),
+    note            TEXT,
+    processed       INTEGER DEFAULT 0,
+    created_at      TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (message_id) REFERENCES messages(id),
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+);
+```
+
 ## Module Map
 
 | Layer | Modules | Purpose |
@@ -180,7 +234,9 @@ CREATE TABLE knowledge_base (
 | **Data** | `db.js`, `conversations.js` | D1 query layers (legacy + v3) |
 | **Email** | `email-parser.js`, `mime.js`, `send.js`, `github.js` | Parse, build, send, verify |
 | **Content** | `pii-fabrication.js`, `resume-generator.js`, `assets.js` | Generate fake data and resumes |
-| **Dashboard** | `router.js`, `api.js`, `views.js` | Web UI and JSON API |
+| **Dashboard** | `router.js`, `api.js`, `views.js`, `anonymize.js` | Web UI, JSON API, viewer masking |
+| **Auth** | `auth.js` | OAuth, sessions, viewer tokens, RBAC |
+| **Admin** | `poke.js` | Re-init, poke, sweep engine |
 | **Logging** | `observability.js` | Structured JSON logs |
 | **Config** | `config.js` | Templates, address routing |
 

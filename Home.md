@@ -35,13 +35,14 @@ flowchart TD
 | [[Knowledge-Base]] | RAG pipeline, categories, management, seeding |
 | [[Persona]] | AI personality, behavioral rules, star strategy, phone excuses |
 | [[Deployment]] | Setup, deploy, rollback, environment configuration |
+| [[Dashboard]] | Web UI, auth, roles, admin actions, poke engine |
 | [[API-Reference]] | Dashboard API endpoints and usage |
 
 ## Quick Links
 
 | Resource | URL |
 |----------|-----|
-| Dashboard | `https://hermes.martymcenroe.ai/?key=YOUR_KEY` |
+| Dashboard | `https://hermes.martymcenroe.ai/dashboard` (sign in with GitHub) |
 | Runbook | [`docs/runbooks/operations.md`](https://github.com/ThriveTech-AI/Hermes/blob/main/docs/runbooks/operations.md) |
 | Wrangler Tail | `npx wrangler tail --format=json` |
 
