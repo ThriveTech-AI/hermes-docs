@@ -43,7 +43,7 @@ flowchart TD
 | Resource | URL |
 |----------|-----|
 | Dashboard | `https://hermes.martymcenroe.ai/dashboard` (sign in with GitHub) |
-| Runbook | [`docs/runbooks/operations.md`](https://github.com/ThriveTech-AI/Hermes/blob/main/docs/runbooks/operations.md) |
+| Runbook | [`docs/runbooks/operations.md`](https://github.com/martymcenroe/Hermes/blob/main/docs/runbooks/operations.md) |
 | Wrangler Tail | `npx wrangler tail --format=json` |
 
 ## Cost
