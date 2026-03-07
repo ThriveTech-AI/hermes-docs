@@ -135,8 +135,7 @@ When recruiters ask for personal information, Hermes generates **fake but determ
 | Role | How Assigned | Permissions |
 |------|-------------|-------------|
 | **Owner** | API key or GitHub username match | Full CRUD, admin actions, poke/sweep |
-| **Viewer+** | GitHub org member (ThriveTech-AI) | Read all data, no writes |
-| **Viewer** | Viewer token or non-org GitHub user | Demo-labeled conversations only, anonymized |
+| **Viewer** | GitHub OAuth non-owner or viewer token | Demo-labeled conversations only, anonymized |
 
 ### Viewer Anonymization
 
@@ -156,7 +155,7 @@ Viewer mode masks PII at runtime (no data duplication):
 ### GitHub OAuth
 
 - Uses GitHub OAuth App (not GitHub App)
-- Scope: `read:org` (checks ThriveTech-AI membership)
+- Scope: `read:user` (identifies GitHub username for role assignment)
 - Session stored in D1 `sessions` table
 - Cookie: `hermes_session`, HttpOnly, Secure, SameSite=Lax, 7-day TTL
 
